@@ -809,7 +809,7 @@
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
                 btn.dataset.filter = cat.id;
-                btn.innerHTML = `<i class="fas ${cat.icon}"></i> ${cat.title.split('. ')[1].split(' ').slice(0, 2).join(' ')}`;
+                btn.innerHTML = `<i class="fas ${cat.icon}"></i> ${cat.title.split('. ')[1].split(' ').slice(0, 7).join(' ')}`;
                 btn.onclick = () => toggleCategoryFilter(cat.id);
                 container.appendChild(btn);
             });
