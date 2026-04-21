@@ -253,6 +253,7 @@
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
     </style>
+<base target="_blank">
 </head>
 <body>
     <header class="header">
@@ -561,7 +562,15 @@
             ]
         };
 
-        let activeFilters = { search: '', severity: [], categories: [] };
+        const ruleMap = new Map();
+categories.forEach(cat => cat.rules.forEach(r => ruleMap.set(r.id, {rule: r, category: cat})));
+
+function openModalById(id) {
+    const data = ruleMap.get(id);
+    if (data) openModal(data.rule, data.category);
+}
+
+let activeFilters = { search: '', severity: [], categories: [] };
 
         function initCategoryFilters() {
             const container = document.getElementById('categoryFilters');
@@ -675,7 +684,7 @@
                     <div class="category-rules" id="cat-${category.id}">
                         <div class="rules-grid">
                             ${filteredRules.map(rule => `
-                                <div class="rule-card severity-${rule.severity}">
+                                <div class="rule-card severity-${rule.severity}" onclick="openModalById('${rule.id}')">
                                     <div class="rule-header">
                                         <span class="rule-id">${rule.id}</span>
                                         <span class="severity-badge">${rule.severity}</span>
