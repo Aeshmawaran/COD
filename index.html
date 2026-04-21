@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code of Conduct | SixEleven</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e293b;
+            --primary-light: #334155;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --minor: #f59e0b;
+            --major: #f97316;
+            --grave: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+
+        .header-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.125rem;
+        }
+
+        /* Search & Filters */
+        .controls {
+            max-width: 1200px;
+            margin: -2rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 50;
+        }
+
+        .controls-inner {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: var(--bg);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 9999px;
+            background: white;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .filter-btn.severity-minor.active { background: var(--minor); border-color: var(--minor); }
+        .filter-btn.severity-major.active { background: var(--major); border-color: var(--major); }
+        .filter-btn.severity-grave.active { background: var(--grave); border-color: var(--grave); }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-right: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .results-count {
+            margin-left: auto;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .category {
+            margin-bottom: 2rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--border);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .category-header:hover {
+            color: var(--accent);
+        }
+
+        .category-header i {
+            font-size: 1.25rem;
+            transition: transform 0.3s;
+        }
+
+        .category-header.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            flex: 1;
+        }
+
+        .category-count {
+            background: var(--bg);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1rem;
+        }
+
+        .rule-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rule-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .rule-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            border-radius: 12px 0 0 12px;
+        }
+
+        .rule-card.severity-minor::before { background: var(--minor); }
+        .rule-card.severity-major::before { background: var(--major); }
+        .rule-card.severity-grave::before { background: var(--grave); }
+
+        .rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+            gap: 0.5rem;
+        }
+
+        .rule-id {
+            font-family: 'SF Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        .severity-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .severity-minor .severity-badge { background: rgba(245, 158, 11, 0.1); color: var(--minor); }
+        .severity-major .severity-badge { background: rgba(249, 115, 22, 0.1); color: var(--major); }
+        .severity-grave .severity-badge { background: rgba(239, 68, 68, 0.1); color: var(--grave); }
+
+        .rule-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .rule-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .rule-desc ul {
+            margin-top: 0.5rem;
+            margin-left: 1.25rem;
+        }
+
+        .rule-desc li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* Penalty Table */
+        .penalty-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .penalty-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .penalty-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .penalty-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9375rem;
+        }
+
+        .penalty-table th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .penalty-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .penalty-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .penalty-severity {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-minor { background: var(--minor); }
+        .dot-major { background: var(--major); }
+        .dot-grave { background: var(--grave); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .rules-grid { grid-template-columns: 1fr; }
+            .filters { flex-direction: column; align-items: stretch; }
+            .filter-group { justify-content: center; }
+            .results-count { margin-left: 0; text-align: center; }
+        }
+
+        /* Smooth transitions */
+        .category-rules {
+            transition: all 0.3s ease-out;
+        }
+
+        .category-rules.collapsed {
+            display: none;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span class="logo-text">SixEleven</span>
+                </div>
+                <span class="header-badge">Internal Document</span>
+            </div>
+            <h1>Code of Conduct</h1>
+            <p>Standards of behavior and disciplinary guidelines for all employees</p>
+        </div>
+    </header>
+
+    <div class="controls">
+        <div class="controls-inner">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search rules by keyword, ID, or description...">
+            </div>
+            <div class="filters">
+                <span class="filter-label">Severity:</span>
+                <div class="filter-group">
+                    <button class="filter-btn severity-minor" data-filter="minor" onclick="toggleFilter('minor')">
+                        <span class="dot dot-minor"></span> Minor
+                    </button>
+                    <button class="filter-btn severity-major" data-filter="major" onclick="toggleFilter('major')">
+                        <span class="dot dot-major"></span> Major
+                    </button>
+                    <button class="filter-btn severity-grave" data-filter="grave" onclick="toggleFilter('grave')">
+                        <span class="dot dot-grave"></span> Grave
+                    </button>
+                </div>
+                <span class="filter-label" style="margin-left: 1rem;">Category:</span>
+                <div class="filter-group" id="categoryFilters"></div>
+                <span class="results-count" id="resultsCount">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="main" id="mainContent"></main>
+
+    <section class="penalty-section">
+        <div class="penalty-card">
+            <h2><i class="fas fa-gavel"></i> Disciplinary Action Matrix</h2>
+            <table class="penalty-table">
+                <thead>
+                    <tr>
+                        <th>Offense Level</th>
+                        <th>1st Offense</th>
+                        <th>2nd Offense</th>
+                        <th>3rd Offense</th>
+                        <th>4th Offense</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="penalty-severity"><span class="dot dot-minor"></span> Minor</span></td>
+                        <td>Written Warning</td>
+                        <td>1 Day Suspension</td>
+                        <td>2-3 Days Suspension</td>
+                        <td>Termination</td>
+                    </tr>
+                    <tr>
+                        <td><span class="penalty-severity"><span class="dot dot-major"></span> Major</span></td>
+                        <td>1 Day Suspension</td>
+                        <td>2-3 Days Suspension</td>
+                        <td>Termination</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td><span class="penalty-severity"><span class="dot dot-grave"></span> Grave</span></td>
+                        <td>Termination</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p> SixEleven Global Services. Internal use only. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Data from the document
+        const categories = [
+            {
+                id: "attendance",
+                title: "1. Attendance, Punctuality, Working Hours and Work Assign",
+                icon: "fa-clock",
+                rules: [
+                    { id: "1.01", severity: "minor", title: "Frequent Tardiness", desc: "Reporting late three (3) times within one calendar month." },
+                    { id: "1.02", severity: "minor", title: "Deviation from Approved Leave Dates", desc: "Failure to follow the dates indicated on an approved leave of absence." },
+                    { id: "1.03", severity: "minor", title: "Wasting Time During Official Working Hours", desc: "Engaging in non-work activities such as unnecessary loitering, excessive chatting, stretching break periods, playing computer games, or entertaining visitors for prolonged periods." },
+                    { id: "1.04", severity: "minor", title: "Deviation from Approved Itinerary", desc: "Changing or deviating from pre-approved itinerary without prior notice to and from a higher authority." },
+                    { id: "1.05", severity: "minor", title: "Failure to Perform Assigned Task or Obey Official Instructions", desc: "Refusing or failing to do assigned task, official instructions, or orders, or to follow established policies, rules and procedures. (For security guards: includes failure to do body frisking and/or inspection duties.)" },
+                    { id: "1.06", severity: "minor", title: "Failure to Cooperate with Team Members", desc: "Not cooperating with colleagues in the completion of assigned work/project." },
+                    { id: "1.07", severity: "minor", title: "Driving or Riding Motorcycle Without Using a Helmet", desc: "Operating or riding a motorcycle without the required motorcycle helmet." },
+                    { id: "1.08", severity: "minor", title: "Tardiness In Attending Mandatory Meetings", desc: "Arriving late to compulsory meetings or officially scheduled Company activities." },
+                    { id: "1.09", severity: "minor", title: "Failure to Follow or Enforce the English Only Policy (EOP)", desc: "Not complying with, implementing, or enforcing the English Only Policy within the call center work area." },
+                    { id: "1.10", severity: "minor", title: "Failure to Conduct Daily Pre-Shift or Post-Shift Meetings", desc: "" },
+                    { id: "1.11", severity: "minor", title: "Failure to Return to Work After Approved Undertime or Break", desc: "Not returning to duty after an approved undertime or break period without prior notice, permission, or a justifiable reason." },
+                    { id: "1.12", severity: "minor", title: "Inclusion in the Internal Business Review (IBR) Watchlist", desc: "" },
+                    { id: "1.14", severity: "minor", title: "Failure to Prepare for a Call/Virtual/Face-to-Face Meeting", desc: "Not completing necessary preparations or requirements to a scheduled call conference, virtual meeting, or in-person meeting." },
+                    { id: "1.15", severity: "minor", title: "Failure to Observe Inter-Departmental Regulations", desc: "Not adhering to established rules, procedures, or protocols governing coordination between departments." },
+                    { id: "1.16", severity: "minor", title: "Failure in Workforce Certification", desc: "" },
+                    { id: "1.17", severity: "minor", title: "Non-Compliance or Non-Submission of Required Reports", desc: "Failure to comply with required procedures, formats, or certifications, or failure to submit required reports including Daily EOD reports and eight transaction audits per day." },
+                    { id: "1.18", severity: "major", title: "Absence Without Official Leave (AWOL)", desc: "Absence from work without official notice, authorization, or approval." },
+                    { id: "1.19", severity: "major", title: "Abandonment of Post", desc: "Not returning to duty after an approved undertime or break period without prior notice, permission, or a justifiable reason." },
+                    { id: "1.20", severity: "major", title: "Refusal to Prepare for Meeting with Clients/Stakeholders", desc: "Not completing necessary preparations for a scheduled call conference, virtual meeting, or in-person meeting with clients, associates, stakeholders and visitors." },
+                    { id: "1.21", severity: "major", title: "Refusal to Conduct Daily Pre-Shift or Post-Shift Meetings", desc: "" },
+                    { id: "1.22", severity: "major", title: "Refusal to Return to Work After Approved Undertime or Break", desc: "Not returning to duty after an approved undertime or break period without prior notice, permission, or a justifiable reason." },
+                    { id: "1.23", severity: "major", title: "Excessive Unapproved Absences", desc: "Accumulating six (6) unapproved absences within a 90-day period or three (3) calendar months." },
+                    { id: "1.24", severity: "major", title: "Failure to Assign a Reliever During Absence or Leave", desc: "Not designating or arranging for a reliever during a scheduled absence or approved leave, as required." },
+                    { id: "1.25", severity: "major", title: "Undertime Without Prior Approval", desc: "Leaving the work area or work assignment without prior permission during work hours or before scheduled end of shift." },
+                    { id: "1.26", severity: "major", title: "Unjustified Refusal to Report for Work or Render Overtime", desc: "Failing or refusing to report for duty, or to render pre-arranged and agreed-upon overtime work without valid reason." },
+                    { id: "1.27", severity: "major", title: "Refusal to Comply with Transfer or Rotation Order", desc: "Deliberately refusing or failing to accept or comply with an official order to transfer or rotate to another job, work station or workplace." },
+                    { id: "1.28", severity: "major", title: "Sleeping While on Duty", desc: "Sleeping or dozing off while on duty or during official working hours." },
+                    { id: "1.29", severity: "major", title: "Gambling During Work Hours", desc: "Engaging in gambling activities such as collecting or placing bets or participating in any game of chance during working hours, or within company premises." },
+                    { id: "1.30", severity: "major", title: "Unauthorized or Unofficial Activity/Work", desc: "Performing unauthorized work or activities within company premises or during working hours, including personal tasks, loafing, loitering, or engaging in activities that disrupt others' work." },
+                    { id: "1.31", severity: "major", title: "Unauthorized Entry or Use of Restricted Area", desc: "Entering restricted areas or using such areas without authorization, or assisting another person in doing so." },
+                    { id: "1.32", severity: "major", title: "Malingering or Feigning Illness", desc: "Providing false excuse(s) for a leave of absence or pretending to be sick to avoid work responsibilities." },
+                    { id: "1.33", severity: "major", title: "Habitual Negligence of Duty", desc: "Repeated lapses in the practice of diligence or consistent failure to perform duties and responsibilities." },
+                    { id: "1.34", severity: "major", title: "Refusal to Comply with Security Requirements", desc: "Deliberate failure or refusal to comply with security procedures including mandatory body frisking by security personnel when entering or exiting company premises." },
+                    { id: "1.35", severity: "major", title: "Refusal to Cooperate with Team Members", desc: "Not cooperating with colleagues in the completion of assigned work/project." },
+                    { id: "1.36", severity: "major", title: "Failure to Prepare for a Meeting", desc: "Not completing necessary preparations or requirements to a scheduled call conference, virtual meeting, or in-person meeting." },
+                    { id: "1.37", severity: "major", title: "Failure To Attend Mandatory Meetings/Activities", desc: "Being absent from compulsory meetings or officially scheduled Company activities without valid reason." },
+                    { id: "1.38", severity: "major", title: "Malingering or Feigning Illness (Duplicate)", desc: "Providing false excuse(s) for a leave of absence or pretending to be sick to avoid work responsibilities." },
+                    { id: "1.39", severity: "major", title: "Habitual Negligence of Duty (Duplicate)", desc: "Repeated lapses in the practice of diligence or consistent failure to perform duties and responsibilities." },
+                    { id: "1.40", severity: "major", title: "Refusal to Comply with Security Requirements (Duplicate)", desc: "Deliberate failure or refusal to comply with security procedures including mandatory body frisking." },
+                    { id: "1.41", severity: "major", title: "Refusal to Cooperate with Team Members (Duplicate)", desc: "Not cooperating with colleagues in the completion of assigned work/project." },
+                    { id: "1.42", severity: "major", title: "Failure to Prepare for a Meeting (Duplicate)", desc: "Not completing necessary preparations or requirements to a scheduled meeting." },
+                    { id: "1.43", severity: "major", title: "Failure To Attend Mandatory Meetings/Activities (Duplicate)", desc: "Being absent from compulsory meetings or officially scheduled Company activities without valid reason." },
+                    { id: "1.44", severity: "major", title: "Failure to Promptly Advise on Payroll/Benefits Updates", desc: "Failing to notify concerned departments regarding exclusion from payroll or removal of benefits for resigned, AWOL, or terminated employees within 24 hours." },
+                    { id: "1.45", severity: "major", title: "Failure to Report Security Incidents", desc: "Failure to report incidents such as theft or other security breaches affecting the building within one hour after the incident." },
+                    { id: "1.46", severity: "major", title: "Submission of an Inaccurate Cycle Report", desc: "" },
+                    { id: "1.47", severity: "major", title: "Failure To Update White/Black List with IT Department", desc: "Failure to update the White List or Black List with the IT Department every six (6) months." },
+                    { id: "1.48", severity: "major", title: "Non-Compliance in Daily Submission of Call Recordings", desc: "Non-compliance in the daily submission of call recordings or audio files to Sixeleven QA Department." },
+                    { id: "1.49", severity: "major", title: "Failure to Notify HR About Subordinate Absences", desc: "Failure to notify HR about subordinate absences within the duration of the shift." },
+                    { id: "1.50", severity: "major", title: "Failure to Promptly Advise on Payroll/Benefits (Duplicate)", desc: "Failing to notify concerned departments regarding exclusion from payroll or removal of benefits within 24 hours." },
+                    { id: "1.51", severity: "grave", title: "Acts of Insubordination", desc: "Refusing to obey lawful and reasonable orders or instructions given by immediate supervisor or authorized Company officers." },
+                    { id: "1.52", severity: "grave", title: "Refusal to Submit to Mandatory Drug Testing", desc: "Failure or refusal to undergo a drug test when chosen in a mandatory random sampling." },
+                    { id: "1.53", severity: "grave", title: "Abandonment of Work", desc: "Absence from work without notice, authorization, or approval for four (4) or more consecutive working days, without official explanation received to one's immediate superior." },
+                    { id: "1.54", severity: "grave", title: "Non-Usage of the Biometrics System", desc: "Failing or refusing to use the biometrics system for entry or exit of company premises." },
+                    { id: "1.55", severity: "grave", title: "Borrowing or Lending of Biometrics Log-ins", desc: "Borrowing, lending, or sharing biometrics credentials or log-in information with another employee for unauthorized use." },
+                    { id: "1.56", severity: "grave", title: "Manipulation or Alteration of Attendance Records", desc: "Entering or leaving Company premises or work assignment without punching in/out via biometrics system, or altering attendance records without prior approval." },
+                    { id: "1.57", severity: "grave", title: "Improper, Unauthorized, or Fraudulent Use of Biometrics", desc: "Including punching in/out on behalf of another employee, requesting another to punch for you, or tampering with time records." }
+                ]
+            },
+            {
+                id: "attire",
+                title: "2. Office Attire",
+                icon: "fa-user-tie",
+                rules: [
+                    { id: "2.01", severity: "minor", title: "Alteration or Improper Wearing of Prescribed Company Uniform", desc: "Modifying, altering, or wearing the prescribed company uniform improperly." },
+                    { id: "2.02", severity: "minor", title: "Failure or Refusal to Wear Company Uniform, I.D., Shoes, or Safety/Security Gear", desc: "Not wearing any item of the required uniform or designated safety/security equipment while on duty." },
+                    { id: "2.03", severity: "minor", title: "Failure or Refusal to Comply with Prescribed Office Attire or Dress Code", desc: "" },
+                    { id: "2.04", severity: "minor", title: "Wearing Sunglasses Inside Operations", desc: "Wearing sunglasses inside operations beyond the Guard Biometrics Area." },
+                    { id: "2.05", severity: "minor", title: "Wearing of Hats, Caps, Bonnets and Similar Headgear", desc: "Using unauthorized head coverings in operational areas past the guard check or biometrics point." },
+                    { id: "2.06", severity: "major", title: "Failure to Update Company ID", desc: "Using an outdated, expired, torn, broken, or otherwise damaged company ID within the workplace." },
+                    { id: "2.07", severity: "major", title: "Improper Display or Wearing of ID", desc: "Wearing or displaying the company ID improperly, such as covering it with keys, stuffed toys, stickers, or similar items." },
+                    { id: "2.08", severity: "major", title: "Unauthorized Use of Head-Covering Apparel on Production Floor", desc: "Wearing hoods, caps, wigs, bandanas, balaclavas, tinted eyewear, sports eyewear, colored goggles, costume masks, or similar items. Note: Hijabs and turbans are permitted." }
+                ]
+            },
+            {
+                id: "property",
+                title: "3. Care of Company Property, Information and Premises",
+                icon: "fa-building",
+                rules: [
+                    { id: "3.01", severity: "minor", title: "Creating or Contributing to Unclean or Unsanitary Conditions", desc: "Engaging in any act that causes or contributes to disorderly, messy, or unhygienic conditions within company premises." },
+                    { id: "3.02", severity: "minor", title: "Failure to Immediately Report Defective Equipment or Facilities", desc: "Not promptly reporting defects, malfunctions, or damages in company equipment or facilities." },
+                    { id: "3.03", severity: "minor", title: "Failure To Report Wastage, Breakage, Loss or Damage Within 24 Hours", desc: "Not reporting any instance of wastage, breakage, loss or damage within 24 hours. Note: Disciplinary action may vary depending on value and severity." },
+                    { id: "3.04", severity: "minor", title: "Failure To Observe Housekeeping and Sanitary Rules", desc: "Not complying with cleanliness standards including spitting, littering, unsanitary handling, urinating outside designated toilets, improper disposal of waste." },
+                    { id: "3.05", severity: "minor", title: "Failure to Turn Off Office Equipment After Use", desc: "Not turning off computers, projectors, air-conditioning, lights, speakers, CPUs, or other office equipment after use or before leaving." },
+                    { id: "3.06", severity: "minor", title: "Using A Locker Without a Personal Padlock", desc: "" },
+                    { id: "3.07", severity: "minor", title: "Unauthorized Reservation of Lockers", desc: "Reserving, holding, or occupying lockers without proper approval or assignment." },
+                    { id: "3.08", severity: "minor", title: "Unauthorized Use of the Internet", desc: "Using company internet access for non-business-related activities." },
+                    { id: "3.09", severity: "major", title: "Bringing or Consuming Food in Unauthorized Areas", desc: "Eating or bringing food especially those with strong odors or liquid drinks not in spill-preventive containers into prohibited areas including High Security Areas." },
+                    { id: "3.10", severity: "major", title: "Sending Trivial or Personal Messages (Spam)", desc: "Sending trivial, personal, spam, 'for-profit,' or chain messages; subscribing to non-business-related email groups or newsletters." },
+                    { id: "3.11", severity: "major", title: "Sending Emails with Illegal or Pornographic Attachments", desc: "Transmitting or forwarding emails that contain illegal, pornographic, or otherwise prohibited attachments or materials." },
+                    { id: "3.12", severity: "major", title: "Importing or Copying Unauthorized Files or Software", desc: "Importing, downloading, copying, or forwarding non-text files through unauthorized storage devices or without proper approval." },
+                    { id: "3.13", severity: "major", title: "Playing Computer Games on Company-Owned Equipment", desc: "Playing computer games using company PCs or devices, including those that come with the Operating Systems package." },
+                    { id: "3.14", severity: "major", title: "Abuse or Misuse of AUX Status", desc: "Using AUX beyond approved time, entering incorrect AUX codes to avoid calls or delay work, or going on AUX without authorization." },
+                    { id: "3.15", severity: "major", title: "Vandalism or Damage to Company Property", desc: "Disfiguring, mutilating, vandalizing, removing, painting, marking, or causing unauthorized changes to company property, buildings, structures, or equipment." },
+                    { id: "3.16", severity: "major", title: "Smoking in Prohibited Areas", desc: "Smoking in 'no-smoking' areas within company premises or during official functions where smoking is restricted." },
+                    { id: "3.17", severity: "major", title: "Negligence Resulting in Loss, Damage, or Harm", desc: "Acts of carelessness or failure to follow procedures that result in loss, damage to company property, reputational harm, or negative impact on clients." },
+                    { id: "3.18", severity: "major", title: "Violation of Safety Rules and Regulations", desc: "Failing to follow established company safety policies, rules, or procedures." },
+                    { id: "3.19", severity: "major", title: "Unauthorized Removal of Safety Signs or Devices", desc: "Removing, altering, or disabling safety signs, barriers, labels, or safety devices without management approval." },
+                    { id: "3.20", severity: "major", title: "Failure to Secure High Security Area Entrances", desc: "Not closing or locking entry points to High Security Areas, resulting in unnecessary security exposure." },
+                    { id: "3.21", severity: "major", title: "Failure to Maintain Cleanliness in Technical Rooms", desc: "Not maintaining cleanliness or proper organization in IT Rooms, Server Rooms, or UPS Rooms." },
+                    { id: "3.22", severity: "major", title: "Refusal to Immediately Report Defective Equipment", desc: "Not promptly reporting defects, malfunctions, or damages in company equipment or facilities." },
+                    { id: "3.23", severity: "grave", title: "Carrying Out Fraudulent Transactions Using Company Systems", desc: "Performing or attempting to perform fraudulent transactions using company computers, systems, networks, or data." },
+                    { id: "3.24", severity: "grave", title: "Unauthorized Disclosure of Login Credentials", desc: "Disclosing or sharing personal or client login IDs, passwords, or authentication details with any individual without proper authorization." },
+                    { id: "3.25", severity: "grave", title: "Unauthorized Use of Another Person's Account or Credentials", desc: "Using or attempting to use another person's computer account, network account, ID, password, or system authorization." },
+                    { id: "3.26", severity: "grave", title: "Tampering With Computer System Settings", desc: "Tampering with, altering, or improperly modifying computer configuration files, system settings, or security setups." },
+                    { id: "3.27", severity: "grave", title: "Information Hacking or Unauthorized Data Access/Modification", desc: "Hacking, accessing, copying, creating, renaming, modifying, deleting, or interfering with any company or client system, directory, file, utility, or software without authorization." },
+                    { id: "3.28", severity: "grave", title: "Allowing Unauthorized Individuals to Access Company Areas or Systems", desc: "Allowing, inviting, encouraging, or giving tacit consent for outsiders or unauthorized persons to gain access to company premises, systems, or equipment." },
+                    { id: "3.29", severity: "grave", title: "Unauthorized Removal, Copying, or Destruction of Company Records", desc: "Removing, copying, reproducing, taking, or destroying official company records, files, information, or equipment without proper authorization." },
+                    { id: "3.30", severity: "grave", title: "Unauthorized Disclosure of Confidential or Proprietary Information", desc: "Disclosing, leaking, exposing, or revealing company trade secrets, confidential information, proprietary records, documents, or data to unauthorized individuals." },
+                    { id: "3.31", severity: "grave", title: "Unauthorized Removal of Company Property", desc: "Bringing out company equipment, files, records, documents, or any company-owned property without proper authorization." },
+                    { id: "3.32", severity: "grave", title: "Concealing or Covering Up Work-Related Errors", desc: "Concealing, hiding, or covering up mistakes in work that result in loss, damage, or harm to the company." },
+                    { id: "3.33", severity: "grave", title: "Omni Channel Avoidance / Queue Avoidance", desc: "Avoiding, delaying, or refusing calls or queue assignments without authorization (call, chats, emails, social media, tickets and all verticals)." }
+                ]
+            },
+            {
+                id: "reporting",
+                title: "4. Accurate Reporting of Information",
+                icon: "fa-file-alt",
+                rules: [
+                    { id: "4.01", severity: "minor", title: "Failure To Notify Supervisor Or HRD", desc: "Failure to notify supervisor or HRD of changes in personal data within seven (7) working days from said changes." },
+                    { id: "4.02", severity: "minor", title: "Failure in Providing Required Information", desc: "Failure in providing known and necessary information resulting in loss or damage to Company property or harm to the Company's name and reputation." },
+                    { id: "4.03", severity: "minor", title: "Failure to Reply or Acknowledge Communication", desc: "Failure to reply or acknowledge an email, chat or notification within 24 hours to client and stakeholders." },
+                    { id: "4.04", severity: "major", title: "Refusal to Disclose Affliction", desc: "Refusal to disclose within five (5) days from discovery of affliction, any infectious or contagious ailment." },
+                    { id: "4.05", severity: "major", title: "Furnishing False or Misleading Information", desc: "Furnishing the Company with false information; or knowingly providing false, misleading, or grossly inaccurate data due to neglect." },
+                    { id: "4.06", severity: "major", title: "Refusal in Providing Required Information", desc: "Refusal in providing known and necessary information resulting in loss or damage to Company property or harm to reputation." },
+                    { id: "4.07", severity: "major", title: "Putting Unauthorized Materials", desc: "Putting up and/or writing unauthorized posters, messages, propaganda or graffiti on walls, halls, corridors, bulletin boards." },
+                    { id: "4.08", severity: "major", title: "Defacing Company Materials", desc: "Defacing or removing company posters, signs, notices, memoranda, or announcements from bulletin boards or designated areas." },
+                    { id: "4.09", severity: "major", title: "Failure to Circulate Client Memos/Updates", desc: "Failure to circulate Client Memos/Updates within 48 hours." },
+                    { id: "4.10", severity: "major", title: "Failure to Report Security-Related Incidents", desc: "Failure to report incidents such as theft or similar events that may affect building security within one (1) hour from occurrence." },
+                    { id: "4.11", severity: "grave", title: "Giving False Testimony During an Official Investigation", desc: "Authorized by the Company." },
+                    { id: "4.12", severity: "grave", title: "Spreading Rumors or Derogatory Statements", desc: "Spreading rumors or derogatory, malicious, or libelous statements that criticize, discredit, damage, or undermine the honor, integrity, reputation, or good name of the Company, its management, stockholders, or employees." },
+                    { id: "4.13", severity: "grave", title: "Making Defamatory or False Statements About the Company", desc: "Making nasty, malicious or false statements or comments about the Company and/or its products and/or services, including posting on social media." },
+                    { id: "4.14", severity: "grave", title: "Falsification of Documents", desc: "Falsification of documents, including those committed during pre-employment or pre-regular physical examination, as well as falsification of any reports or documents submitted at any time during employment." }
+                ]
+            },
+            {
+                id: "conflict",
+                title: "5. Conflict of Interest",
+                icon: "fa-balance-scale",
+                rules: [
+                    { id: "5.01", severity: "minor", title: "Unauthorized Use of Office Supplies", desc: "Unauthorized use of stocks, inventory, office supplies, materials, food, or leftovers. This includes taking office supplies, equipment, materials, or products home without proper authorization." },
+                    { id: "5.02", severity: "minor", title: "Failure to Report or Surrender Found Items", desc: "Failure to immediately report and surrender to management any articles found on Company premises, regardless of their value." },
+                    { id: "5.03", severity: "minor", title: "Unauthorized Retention of Sales Documents", desc: "Keeping sales documents, including duplicate copies of sales invoices, order slips, or similar materials, without proper permission." },
+                    { id: "5.04", severity: "minor", title: "Failure to Follow Liquidation Process", desc: "Failure to comply with liquidation protocols within 5 days after the activity." },
+                    { id: "5.05", severity: "major", title: "Unauthorized Solicitations or Collection", desc: "Engaging in unauthorized solicitation or collection activities during work hours or within Company premises, including asking for or borrowing money from co-workers." },
+                    { id: "5.06", severity: "major", title: "Failure of Supervisor to Report Infractions", desc: "Failure of a supervisor or manager to take action or report any employee violation against the Code of Conduct or Company policies." },
+                    { id: "5.07", severity: "major", title: "Holding Unauthorized Meeting", desc: "Holding unauthorized meeting or any gathering, or assembly within Company premises; or conducting unauthorized activity during working hours." },
+                    { id: "5.08", severity: "major", title: "Abuse of Authority", desc: "Use of one's authority to compel subordinates to perform acts not official in nature, or using Company time and/or authority." },
+                    { id: "5.09", severity: "major", title: "Unauthorized Use of Company Property, Vehicles, or Equipment", desc: "Operating, using, interfering with, or allowing unauthorized persons to use Company materials, vehicles, tools, supplies, equipment, facilities or premises." },
+                    { id: "5.10", severity: "major", title: "Failure to Report Erroneous Payments", desc: "Failure to report within 48 hours after receiving an erroneous payment or overpayment of commission, allowance, salary, reimbursement or any remuneration." },
+                    { id: "5.11", severity: "major", title: "Unauthorized Substitution or Misplacement of Company Property", desc: "Unauthorized substitution of any Company materials, tools, equipment or facilities, or unauthorized use, possession, removal, concealment, or deliberate misplacement." },
+                    { id: "5.12", severity: "major", title: "Disclosure of Confidential Salary Information", desc: "Disclosing, leaking, or revealing salaries, salary movement or any confidential compensation information to co-employees or unauthorized persons." },
+                    { id: "5.13", severity: "major", title: "Failure to Secure Required Activity Waivers", desc: "Failure to issue, secure, or furnish participants with an official SixEleven Activity Waiver for outings, team-building events, field trips, or any Company-related activities held outside the office." },
+                    { id: "5.14", severity: "grave", title: "Participation In Other Business Engagements Without Prior Consent", desc: "Participation in other business engagements or outside employments without prior consent of the Company." },
+                    { id: "5.15", severity: "grave", title: "Participation In Similar Trade or Business Without Prior Consent", desc: "Participation in a similar trade or business holding any position or employment with any firm engaged in a similar line of business or in competition with the Company." },
+                    { id: "5.16", severity: "grave", title: "Obtaining Company Supplies Through Fraudulent Orders", desc: "Obtaining Company supplies or materials through fraudulent orders or connection and/or collusion with principals or suppliers." },
+                    { id: "5.17", severity: "grave", title: "Unauthorized Commission, Overpricing or Receipt of Gifts", desc: "Accepting directly or indirectly any sum of money, gift, benefit, unauthorized commission, offer, or promise in consideration of any act connected with official duties." },
+                    { id: "5.18", severity: "grave", title: "Acts of Dishonesty", desc: "Any act of dishonesty or attempt to commit dishonesty, including falsifying an expense, reimbursement report, receipt or any other financial documents." },
+                    { id: "5.19", severity: "grave", title: "Fraudulent Withdrawal or Acquisition of Company Property", desc: "Fraudulent, deceitful or unlawful withdrawal or acquisition or release of Company funds and/or property to oneself or to others." },
+                    { id: "5.20", severity: "grave", title: "Causing Loss and/or Damage to Company Property", desc: "Causing loss of, or damage to, Company property through negligence, misconduct, or willful intent." },
+                    { id: "5.21", severity: "grave", title: "Theft And Robbery", desc: "Any act constituting qualified theft or robbery or any attempt to commit qualified theft or robbery of any property within or outside Company premises." },
+                    { id: "5.22", severity: "grave", title: "Breach of Trust", desc: "Breach of the trust vested in the employee by Management, an officer, or any Company representative." },
+                    { id: "5.23", severity: "grave", title: "Acceptance or Offer of Anything of Value to Influence Decisions", desc: "Accepting or offering money, gifts, favors, or anything of value to obtain or grant a job, promotion, favorable employment condition, or to influence any act or decision." },
+                    { id: "5.24", severity: "grave", title: "Borrowing Money or Articles of Value from Subordinates", desc: "Borrowing money or items of value from subordinates, or asking subordinates to guarantee or co-sign a personal loan." },
+                    { id: "5.25", severity: "grave", title: "Unauthorized Use of Company Name, Branding, or Business Materials", desc: "Using the name of the Company, partners, letterheads, logos, trademarks or business forms for activities not connected with assigned duties." },
+                    { id: "5.26", severity: "grave", title: "Unauthorized Removal or Handling of Company Funds or PCF", desc: "Unauthorized removal, use, or handling of Company funds or petty cash funds, including failing to properly record, remit, or turn over payments." },
+                    { id: "5.27", severity: "grave", title: "Bribing Employees to Violate Policies", desc: "Inducing, bribing, or coercing co-employee(s) to violate Company policies, rules and regulations." }
+                ]
+            },
+            {
+                id: "behavior",
+                title: "6. General Behavior",
+                icon: "fa-users",
+                rules: [
+                    { id: "6.01", severity: "minor", title: "Disorderly Conduct or Horseplay", desc: "Engaging in disorderly conduct, horseplay, or any behavior that disrupts the workplace during working hours or within Company premises." },
+                    { id: "6.02", severity: "minor", title: "Failure to Comply with Required Medical Check-Ups", desc: "Failure to submit promptly to required annual medical check-up, or to report promptly to a doctor despite instruction by management." },
+                    { id: "6.03", severity: "major", title: "Showing or Exhibiting Pornographic Materials", desc: "Showing, displaying, or distributing pornographic materials at any time within Company premises or areas under Company jurisdiction." },
+                    { id: "6.04", severity: "major", title: "Being Under the Influence of Alcohol or Drugs", desc: "Entering Company premises while under the influence of alcohol or intoxicating substances, or consuming alcohol within Company premises." },
+                    { id: "6.05", severity: "major", title: "Participating in Heated or Disruptive Arguments", desc: "Participating in heated, loud, or disruptive arguments, discussions or debates during working hours and/or within Company premises." },
+                    { id: "6.06", severity: "major", title: "Violation of Non-Fraternization Policy", desc: "Violating the Company's Non-Fraternization Policy including romantic relationships between manager and reporting staff, dating between employees, or romantic involvement in a reporting relationship. Note: Continued non-compliance may be treated as a terminal offense." },
+                    { id: "6.07", severity: "major", title: "Unauthorized Bringing of Mobile/Electronic/Computer Device", desc: "Unauthorized bringing of mobile, electronic, or computer device without prior approval from the Company." },
+                    { id: "6.08", severity: "major", title: "Participating in Malicious or Non-Approved Campaigns", desc: "Maintaining, introducing, or participating in non-approved, malicious signature campaigns or similar activities that may harm the Company or its personnel." },
+                    { id: "6.09", severity: "grave", title: "Acts of Discourtesy", desc: "Acts of discourtesy to stockholders, company officers, business associates, customers or visitors or superiors." },
+                    { id: "6.10", severity: "grave", title: "Entering Company Premises Under the Influence of Drugs", desc: "Entering Company premises, or any area under Company jurisdiction, under the influence of illegal drugs." },
+                    { id: "6.12", severity: "grave", title: "Allowing an Employee Under the Influence to Work", desc: "Knowingly allowing an employee who is under the influence of alcohol or drugs to be relieved, assigned, or perform work." },
+                    { id: "6.13", severity: "grave", title: "Immoral Acts or Illicit Relationships", desc: "Committing immoral acts within Company premises or engaging in illicit or immoral relationships with co-employees, clients, suppliers, or any business associate." },
+                    { id: "6.14", severity: "grave", title: "Threats, Verbal Assault, Harassment, or Intimidation", desc: "Any act constituting threat, verbal assault, provocation, intimidation, coercion or harassment against any employee, or unduly interfering with Company operations." },
+                    { id: "6.15", severity: "grave", title: "Using Or Uttering Lewd, Rude or Insulting Language", desc: "Using or uttering lewd, rude or insulting language during office hours and/or within Company premises, or engaging in immoral or unethical practices." },
+                    { id: "6.16", severity: "grave", title: "Rumor-Mongering or Disclosure of Co-Employee's Personal Affairs", desc: "Engaging in rumor-mongering, or disclosing co-employee's personal affairs to others, distortion of facts that would discredit or embarrass another employee in all forms and media." },
+                    { id: "6.17", severity: "grave", title: "Assisting or Encouraging Third Parties to Harm Employees", desc: "Assisting and/or encouraging non-employee (third party) to harm, threaten, and/or physically attack a co-employee for work-related reasons." },
+                    { id: "6.18", severity: "grave", title: "Unauthorized Discharge of Work", desc: "Performing work outside of assigned duties or tasks without authorization." },
+                    { id: "6.19", severity: "grave", title: "Bringing Firearms, Explosives or Deadly Weapons", desc: "Bringing in or carrying firearms, explosives, flammable materials and other deadly weapons, such as bolos, ice picks, etc., inside company premises." },
+                    { id: "6.20", severity: "grave", title: "Prohibited Drugs", desc: "Pushing, selling, using, or possessing prohibited drugs or paraphernalia and substitutes within Company premises." },
+                    { id: "6.21", severity: "grave", title: "Conviction of Crime", desc: "Conviction of a crime involving moral turpitude and crimes which adversely affects the employee's performance or qualifications to remain an employee." },
+                    { id: "6.22", severity: "grave", title: "Deliberate Hindrance or Disruption of Work", desc: "Deliberately hindering, holding back, limiting, or slowing down work and/or production; participating in mass leave, sit-down, riot, or similar disruptive activities." },
+                    { id: "6.23", severity: "grave", title: "Extortion or Unauthorized Extraction of Value", desc: "Extorting or attempting to extract money, goods, or any form of value from co-employees, Company guests, suppliers, clients, or principals." },
+                    { id: "6.24", severity: "grave", title: "Committing Other Acts of Dishonesty or Anomaly", desc: "Committing other acts of dishonesty or anomaly not embraced by any provision which may or have caused damage to Company property." },
+                    { id: "6.25", severity: "grave", title: "Gross Inefficiency or Unsatisfactory Performance", desc: "Continuing gross inefficiency or unsatisfactory performance despite prior notice or guidance." },
+                    { id: "6.26", severity: "grave", title: "Deliberate Negligence by Immediate Superior", desc: "On the part of an immediate superior, deliberately condoning, ignoring, tolerating, or participating in an offense committed by a subordinate." },
+                    { id: "6.27", severity: "grave", title: "Acts Prejudicing a Superior's Duties", desc: "Committing acts directly related to a superior's discharge of official duties which prejudice the superior's interests." },
+                    { id: "6.28", severity: "grave", title: "Malicious Chat Groups or Email Threads", desc: "Maintaining, hosting, or participating in non-approved, malicious chat groups, email threads, or other communication on official Company platforms." }
+                ]
+            }
+        ];
+
+        let activeFilters = {
+            search: '',
+            severity: [],
+            categories: []
+        };
+
+        // Initialize category filter buttons
+        function initCategoryFilters() {
+            const container = document.getElementById('categoryFilters');
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.dataset.filter = cat.id;
+                btn.innerHTML = `<i class="fas ${cat.icon}"></i> ${cat.title.split('. ')[1].split(' ').slice(0, 2).join(' ')}`;
+                btn.onclick = () => toggleCategoryFilter(cat.id);
+                container.appendChild(btn);
+            });
+        }
+
+        function toggleFilter(severity) {
+            const idx = activeFilters.severity.indexOf(severity);
+            if (idx > -1) {
+                activeFilters.severity.splice(idx, 1);
+            } else {
+                activeFilters.severity.push(severity);
+            }
+            updateFilterButtons();
+            render();
+        }
+
+        function toggleCategoryFilter(catId) {
+            const idx = activeFilters.categories.indexOf(catId);
+            if (idx > -1) {
+                activeFilters.categories.splice(idx, 1);
+            } else {
+                activeFilters.categories.push(catId);
+            }
+            updateFilterButtons();
+            render();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+                const filter = btn.dataset.filter;
+                const isSeverity = ['minor', 'major', 'grave'].includes(filter);
+                const isActive = isSeverity 
+                    ? activeFilters.severity.includes(filter)
+                    : activeFilters.categories.includes(filter);
+                btn.classList.toggle('active', isActive);
+            });
+        }
+
+        function matchesFilters(rule, category) {
+            // Search filter
+            if (activeFilters.search) {
+                const searchLower = activeFilters.search.toLowerCase();
+                const matchSearch = 
+                    rule.id.toLowerCase().includes(searchLower) ||
+                    rule.title.toLowerCase().includes(searchLower) ||
+                    rule.desc.toLowerCase().includes(searchLower) ||
+                    category.title.toLowerCase().includes(searchLower);
+                if (!matchSearch) return false;
+            }
+
+            // Severity filter
+            if (activeFilters.severity.length > 0 && !activeFilters.severity.includes(rule.severity)) {
+                return false;
+            }
+
+            // Category filter
+            if (activeFilters.categories.length > 0 && !activeFilters.categories.includes(category.id)) {
+                return false;
+            }
+
+            return true;
+        }
+
+        function render() {
+            const container = document.getElementById('mainContent');
+            container.innerHTML = '';
+
+            let totalRules = 0;
+            let visibleCategories = 0;
+
+            categories.forEach(category => {
+                const filteredRules = category.rules.filter(rule => matchesFilters(rule, category));
+
+                if (filteredRules.length === 0) return;
+
+                visibleCategories++;
+                totalRules += filteredRules.length;
+
+                const categoryEl = document.createElement('div');
+                categoryEl.className = 'category';
+
+                const severityCounts = { minor: 0, major: 0, grave: 0 };
+                filteredRules.forEach(r => severityCounts[r.severity]++);
+
+                const countBadges = Object.entries(severityCounts)
+                    .filter(([_, count]) => count > 0)
+                    .map(([sev, count]) => {
+                        const colors = { minor: '#f59e0b', major: '#f97316', grave: '#ef4444' };
+                        return `<span style="color:${colors[sev]};font-weight:700;">${count} ${sev}</span>`;
+                    }).join(' <span style="color:var(--text-muted)">·</span> ');
+
+                categoryEl.innerHTML = `
+                    <div class="category-header" onclick="toggleCategory('${category.id}')">
+                        <i class="fas ${category.icon}"></i>
+                        <span class="category-title">${category.title}</span>
+                        <span class="category-count">${filteredRules.length} rules</span>
+                        <span style="margin-left:auto;margin-right:1rem;font-size:0.875rem;color:var(--text-muted);">${countBadges}</span>
+                        <i class="fas fa-chevron-down" style="transition:transform 0.3s;"></i>
+                    </div>
+                    <div class="category-rules" id="cat-${category.id}">
+                        <div class="rules-grid">
+                            ${filteredRules.map(rule => `
+                                <div class="rule-card severity-${rule.severity}">
+                                    <div class="rule-header">
+                                        <span class="rule-id">${rule.id}</span>
+                                        <span class="severity-badge">${rule.severity}</span>
+                                    </div>
+                                    <div class="rule-title">${rule.title}</div>
+                                    ${rule.desc ? `<div class="rule-desc">${rule.desc}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(categoryEl);
+            });
+
+            // Update results count
+            const countEl = document.getElementById('resultsCount');
+            if (totalRules === 0) {
+                countEl.textContent = 'No results found';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>No rules match your filters</h3>
+                        <p>Try adjusting your search or filter criteria</p>
+                    </div>
+                `;
+            } else {
+                countEl.textContent = `${totalRules} rule${totalRules !== 1 ? 's' : ''} in ${visibleCategories} categor${visibleCategories !== 1 ? 'ies' : 'y'}`;
+            }
+        }
+
+        function toggleCategory(catId) {
+            const rulesDiv = document.getElementById(`cat-${catId}`);
+            const header = rulesDiv.previousElementSibling;
+            rulesDiv.classList.toggle('collapsed');
+            header.classList.toggle('collapsed');
+        }
+
+        // Search input handler
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            activeFilters.search = e.target.value;
+            render();
+        });
+
+        // Initialize
+        initCategoryFilters();
+        render();
+
+        // Keyboard shortcut for search
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+        });
+    </script>
+</body>
+</html>
